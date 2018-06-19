@@ -10,16 +10,13 @@ char	*ft_format_x(va_list ap, t_printf *all)
 		a = (unsigned int)(a);
 	else if (all->l_m == 1)
 		// a = va_arg(ap, unsigned int) & 0xFFFF;
-		a = (unsigned int)(a) & 0xFFFF;
+		a = (unsigned char)(a) & 0xFFFF;
 	else if (all->l_m == 2)
 		// a = va_arg(ap, unsigned short int) & 0xFF;
-		a = (unsigned int)(a) & 0xFF;
+		a = (unsigned short int)(a) & 0xFF;
 	else if (all->l_m == 3)
 		// a = va_arg(ap, unsigned long);
-		a = (unsigned long)(a);
-	else if (all->l_m == 4)
-		// a = va_arg(ap, unsigned long long);
-		a = (unsigned long long)(a);
+		a = (unsigned long int)(a);
 	else if (all->l_m == 5)
 		// a = va_arg(ap, uintmax_t);
 		a = (uintmax_t)(a);
