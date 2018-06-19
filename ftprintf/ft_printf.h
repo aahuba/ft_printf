@@ -21,23 +21,11 @@
 # define SPEC "lhjz"
 # define FLAG "#0 -+"
 
-// typedef struct	s_specif
-// {
-// 	char		spec;
-// 	char		minus;
-// 	char		zero;
-// 	char		hash;
-// }				t_specif;
-
 typedef struct	s_printf
 {
-	// char		flag; // #0 -+
 	int			w;
 	int			prsn;
 	int			pres;
-//	t_specif	*spcr; // specificator lhjz
-	// char		tochn_bool;
-	// char		type; // sSpd%DioOuUxXcC
 	int			l_m;
 	char		*res; // result
 	int			hash;
@@ -59,12 +47,10 @@ void	ft_pstr(char *str, t_printf all, int *pd, char c);
 void	ft_modific(t_printf *all, char *str);
 void	ft_prnum(char *s, t_printf all, char c, int *pd);
 void	ft_format_percent(t_printf *all, int *pd);
-// void	ft_format_u(va_list ap, t_printf *all, int *pd);
 void	ft_format_xx(va_list ap, t_printf *all, int *pd, char c);
 char	*ft_format(va_list ap, t_printf *all, int *pd, char c);
 void	ft_format_uu(va_list ap, t_printf *all, int *pd);
 void	ft_format_p(va_list ap, t_printf *all, int *pd);
-// void	ft_format_o(va_list ap, t_printf *all, int *pd, char c);
 void	ft_format_dd(va_list ap, t_printf *all, int *pd);
 void	ft_format_d(va_list ap, t_printf *all, int *pd);
 

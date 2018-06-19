@@ -101,38 +101,6 @@ void	ft_modific(t_printf *all, char *str)
 	}
 }
 
-// void	ft_chang_modif(int *n, t_printf all)
-// {
-// 	if (all.l_m == '0')
-// 		*n = (int)(*n);
-// 	if (all.l_m == '1')
-// 		*n = (signed char)(*n);
-// 	if (all.l_m == '2')
-// 		*n = (short)(*n);
-// 	if (all.l_m == '3')
-// 		*n = (long)(*n);
-// 	if (all.l_m == '5')
-// 		*n = (intmax_t)(*n);
-// 	if (all.l_m == '6')
-// 		*n = (size_t)(*n);
-// }
-
-// void	ft_chang_modif_unsig(int *n, t_printf all)
-// {
-// 	if (all.l_m == '0')
-// 		*n = (unsigned int)(*n);
-// 	if (all.l_m == '1')
-// 		*n = (unsigned char)(*n);
-// 	if (all.l_m == '2')
-// 		*n = (unsigned short int)(*n);
-// 	if (all.l_m == '3')
-// 		*n = (unsigned long int)(*n);
-// 	if (all.l_m == '5')
-// 		*n = (uintmax_t)(*n);
-// 	if (all.l_m == '6')
-// 		*n = (size_t)(*n);
-// }
-
 void	ft_prnum(char *s, t_printf all, char c, int *pd)
 {
 	// int		spaces;
@@ -149,138 +117,6 @@ void	ft_prnum(char *s, t_printf all, char c, int *pd)
 		ft_putstr(s);
 }
 
-// char		*ft_rev(char *start)
-// {
-// 	char	*new;
-// 	char	*end;
-// 	char	*new_start;
-
-// 	end = start;
-// 	new = ft_strnew(ft_strlen(start));
-// 	new_start = new;
-// 	while (*end)
-// 		end++;
-// 	end--;
-// 	*new++ = *end;
-// 	while (end - start != 0)
-// 	*new++ = *(--end);
-// 	free(start);
-// 	return (new_start);
-// }
-
-// int			ft_base(char c)
-// {
-// 	int		base;
-
-// 	base = (c == 'o') ? 8 : 16;
-// 	if (c == 'i' || c == 'd' || c == 'D')
-// 		base = (c == 'd') ? 10 : base;
-// 	base = (c == 'u') ? 2 : base;
-// 	return (base);
-// }
-
-// void		ft_i_b_u(char c, unsigned long long int n, t_printf all, int *pd)
-// {
-// 	long long int	i;
-// 	char			*res;
-// 	long long int	base;
-
-// 	ft_chang_modif_unsig(&n, all);
-// 	res = (char *)(malloc(sizeof(char) * 30));
-// 	base = ft_base(&i, c);
-// 	while (n > 0)
-// 	{
-// 		// if ((c == 'x' || c == 'X') && n % base > 9 && n % base < 17)
-// 		// 	res[i++] = (c == 'x') ? 87 + n % base : 55 + n % base;
-// 		// else
-// 			// res[i++] = (char)(48 + n % base);
-// 		res[i++] = (char)(48 + n % base);
-// 		n = n / base;
-// 	}
-// 	res[i] = '\0';
-// 	res = ft_rev(res);
-// 	ft_prnum(res, all, c, pd);
-// 	free(res);
-// }
-
-// static int		conv_ex(int nb)
-// {
-// 	if (nb >= 10)
-// 		return (nb - 10 + 'a');
-// 	else
-// 		return (nb + '0');
-// }
-
-// void	ft_itoa_base(char c, int value, t_printf all, int *pd)
-// {
-// 	int					i;
-// 	char				*str;
-// 	int				tmp;
-// 	int		base;
-	
-// 	if (c == 'i' || c == 'd' || c == 'D')
-// 		ft_chang_modif(&value, all);
-// 	else
-// 		ft_chang_modif_unsig(&value, all);
-// 	i = 0;
-// 	tmp = value;
-// 	base = ft_base(c);
-// 	while (tmp >= base)
-// 	{
-// 		tmp = tmp / base;
-// 		i++;
-// 	}	
-// 	if (!(str = (char *)malloc(sizeof(char) * (i + 1))))
-// 		exit(1);
-// 	str[i + 1] = '\0';
-// 	while (i >= 0)
-// 	{
-// 		tmp = value % base;
-// 		str[i] = conv_ex(tmp);
-// 		value /= base;
-// 		i--;
-// 	}
-// 	ft_prnum(str, all, c, pd);
-// }
-
-// void		ft_itoa_base(char c, long long int n, t_printf all, int *pd)
-// {
-// 	char			*res;
-// 	long long int	i;
-// 	long long int	base;
-
-// 	if (c == 'i' || c == 'd' || c == 'D')
-// 		ft_chang_modif(&n, all);
-// 	else
-// 		ft_chang_modif_unsig((unsigned long long int *)&n, all);
-// 	i = 0;
-// 	res = (char *)(malloc(sizeof(char) * 30));
-// 	base = ft_base(&i, c);
-// 	if (n < 0)
-// 	{
-// 		all.min = 1;
-// 		n *= -1;
-// 	}
-// 	if (n == 0 && ++i)
-// 		res[0] = '0';
-// 	while (n > 0)
-// 	{
-// 		if ((c == 'x' || c == 'X') && n % base > 9 && n % base < 17)
-// 			res[i++] = (c == 'x') ? 87 + n % base : 55 + n % base;
-// 		else
-// 			res[i++] = (char)(48 + n % base);
-// 		// res[i++] = (char)(48 + n % base);
-// 		n = n / base;
-// 	}
-// 	res[i] = '\0';
-// 	res = ft_rev(res);
-// 	if (c == 'i' || c == 'd' || c == 'D')
-// 		ft_prnum(res, all, '\0', pd);
-// 	else
-// 		ft_prnum(res, all, c, pd);
-// 	free(res);
-// }
-
 void		ft_numb(t_printf *all, va_list ap, int *pd)
 {
 	char	c;
@@ -288,42 +124,22 @@ void		ft_numb(t_printf *all, va_list ap, int *pd)
 	c = (all->format)[0];
 	if (c == 'p')
 	{
-		// p = (unsigned long)va_arg(ap, void*);
 		all->l_m = 4;
 		all->point = 1;
-		// ft_i_b_u('x', p, *all, pd);
 		ft_format_p(ap, all, pd);
-		// ft_itoa_base('x', p, *all, pd);
-		// return ('0');
 	}
 	if (all->pres == 1) 
 		all->zero = 0;
-	// if (c == 'D' || c == 'U' || c == 'O')
-	// 	ft_modific(all, "l");
-	// *i = va_arg(ap, int);
 	(c == 'i' || c == 'd') ? ft_format_d(ap, all, pd) : 0;
 	(c == 'D') ? ft_format_dd(ap, all, pd) : 0;
 	(c == 'x' || c == 'X') ? ft_format_xx(ap, all, pd, c) : 0;
-	// if (c == 'i' || c == 'd' || c == 'D')
-	// 	ft_itoa_base(c, *i, *all, pd);
-	// if (c == 'x')
-	// 	return ('x');
-		// ft_i_b_u('x', i, *all, pd);
-	// if (c == 'X')
-	// 	return ('X');
-		// ft_i_b_u('X', i, *all, pd);
 	if (c == 'o' || c == 'O' || c == 'u' || c == 'U')
 	{
-			// return ('o');
-			// ft_i_b_u('o', i, *all, pd);
 		if (c == 'U')
 			ft_format_uu(ap, all, pd);
 		else
 			ft_format(ap, all, pd, c);
-			// return ('d');
-			// ft_i_b_u('d', i, *all, pd);
 	}
-	// return ('0');
 }
 
 void		ft_chr(t_printf *all, va_list ap, int *pd)
@@ -347,18 +163,8 @@ void		ft_type(t_printf *all, va_list ap, char format, int *pd)
 		ft_chr(all, ap, pd);
 	else if ((all->format)[0] == '%')
 		ft_format_percent(all, pd);
-	// else if ((all->format)[0] == 'p')
-	// {
-	// 	p = (unsigned long)va_arg(ap, void*);
-	// 	all->l_m = 4;
-	// 	all->point = 1;
-	// 	ft_i_b_u('x', p, *all, pd);
-	// }
 	else
 		ft_numb(all, ap, pd);
-	// if (c != '0')
-	// 	// ft_i_b_u(c, i, *all, pd);
-	// 	ft_itoa_base(c, i, *all, pd);
 }
 
 void	ft_flag(t_printf *all, char c)
