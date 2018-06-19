@@ -316,9 +316,7 @@ void		ft_numb(t_printf *all, va_list ap, int *pd)
 	{
 			// return ('o');
 			// ft_i_b_u('o', i, *all, pd);
-		if (c == 'u')
-			ft_format(ap, all, pd, c);
-		else if (c == 'U')
+		if (c == 'U')
 			ft_format_uu(ap, all, pd);
 		else
 			ft_format(ap, all, pd, c);
