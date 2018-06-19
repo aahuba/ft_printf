@@ -146,8 +146,8 @@ void		ft_chr(t_printf *all, va_list ap, int *pd)
 {
 	if ((all->format)[0] == 's' && all->l_m != 3)
 		ft_pstr(va_arg(ap, char *), *all, pd, 's');
-	// else if ((all->format)[0] == 'S' || (c == 's' && opt->modif == 3))
-	// 	ft_unicode_s(ap, all, pd);
+	else if ((all->format)[0] == 'S' || ((all->format)[0] == 's' && all->l_m == 3))
+		ft_format_ss(ap, all, pd);
 	else if ((all->format)[0] == 'c' && all->l_m != 3)
 		ft_char(*all, ap, pd);
 	// else if ((all->format)[0] == 'C' || (c == 'c' && opt->modif == 3))
