@@ -1,46 +1,46 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ahuba <marvin@42.fr>                       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/24 02:08:57 by ahuba             #+#    #+#             */
-/*   Updated: 2017/11/24 02:27:44 by ahuba            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-static	size_t	get_strlen(int n)
+static int	str_len(long long int n)
 {
-	size_t i;
+	int i;
 
-	i = 1;
-	while (n /= 10)
+	i = 0;
+	if (n < 0)
+	{
 		i++;
+		n = -n;
+	}
+	while (n > 0)
+	{
+		n = n / 10;
+		i++;
+	}
 	return (i);
 }
 
-char			*ft_itoa(int n)
+char		*ft_itoa(long long int n)
 {
-	char			*str;
-	size_t			strlen;
-	unsigned int	i;
+	char	*ret;
+	int		i;
 
-	strlen = get_strlen(n);
-	i = n;
+	if ((unsigned long long)n == 9223372036854775808U)
+		return (ft_strdup("-9223372036854775808"));
+	if (n == -0)
+		return (ft_strdup("0"));
+	if (!(ret = ft_strnew(str_len(n))))
+		return (NULL);
+	i = str_len(n);
 	if (n < 0)
 	{
-		i = -n;
-		strlen++;
+		n = -n;
+		ret[0] = '-';
 	}
-	if (!(str = ft_strnew(strlen)))
-		return (NULL);
-	str[--strlen] = i % 10 + '0';
-	while (i /= 10)
-		str[--strlen] = i % 10 + '0';
-	if (n < 0)
-		str[0] = '-';
-	return (str);
+	ret[i--] = 0;
+	while (n > 0)
+	{
+		ret[i] = (n % 10) + '0';
+		n = n / 10;
+		i--;
+	}
+	return (ret);
 }

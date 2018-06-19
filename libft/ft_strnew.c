@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <libft.h>
 
 char	*ft_strnew(size_t size)
 {
 	char *buffer;
 
-	buffer = malloc(sizeof(char) * size + 1);
+	buffer = (char *)malloc(sizeof(char) * (size + 1));
 	if (!buffer)
-		return (NULL);
+		return (0);
 	ft_bzero(buffer, size + 1);
 	return (buffer);
 }
