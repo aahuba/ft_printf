@@ -10,7 +10,7 @@ char	*ft_format_x(va_list ap, t_printf *all)
 		a = (unsigned int)(a) & 0xFFFF;
 	else if (all->l_m == 2)
 		// a = va_arg(ap, unsigned short int) & 0xFF;
-		a = (unsigned char)(a) & 0xFF;
+		a = (unsigned short int)(a) & 0xFF;
 	else if (all->l_m == 3)
 		// a = va_arg(ap, unsigned long);
 		a = (unsigned long)(a);
