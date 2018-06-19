@@ -46,7 +46,7 @@ int		ft_printf(char *format, ...);
 void	ft_pstr(char *str, t_printf all, int *pd, char c);
 void	ft_modific(t_printf *all, char *str);
 void	ft_prnum(char *s, t_printf all, char c, int *pd);
-void	ft_putwchar_fd(wchar_t chr, int *pd);
+void	ft_putwchar(wchar_t chr, int *pd);
 void	ft_format_ss(va_list ap, t_printf *all, int *pd);
 void	ft_format_percent(t_printf *all, int *pd);
 void	ft_format_xx(va_list ap, t_printf *all, int *pd, char c);
