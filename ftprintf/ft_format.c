@@ -42,6 +42,11 @@ void	ft_format_xx(va_list ap, t_printf *all, int *pd, char c)
 	char *a;
 
 	a = ft_format(ap, all, pd, c);
+	if (c == 'x' && all->hash == 1 && all->zero == 0 && *a != '0' && (*pd = *pd - 2))
+		a = ft_strjoin("0x", a);
+	if (c == 'X' && all->hash == 1 && all->zero == 0 && *a != '0' && (*pd = *pd - 2))
+		a = ft_strjoin("0X", a);
+	// (*a == '0' && all->hash == 1 && all->zero != 0) ? (*pd = *pd - 2) : 0;
 	if (c == 'X')
 		ft_strupper(a);
 	ft_prnum(a, *all, c, pd);

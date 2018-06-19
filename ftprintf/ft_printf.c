@@ -14,8 +14,8 @@ void		ft_pstr(char *str, t_printf all, int *pd, char c)
 		str = ft_strcpy(str, "(null)");
 	}
 	l = (*str == '\0' && c == 'c') ? 1 : ft_strlen(str);
-	if (l > all.prsn && (all.prsn != -1 && !(*str == '\0' && c == 'c')))
-		l = all.prsn;
+	if (l > all.precis && (all.precis != -1 && !(*str == '\0' && c == 'c')))
+		l = all.precis;
 	i = (all.w > l && all.left != 1) ? (all.w - l) : 0;
 	while (i > 0 && i-- && ++(*pd))
 		(all.zero == 0) ? write(1, " ", 1) : write(1, "0", 1);
@@ -33,10 +33,10 @@ void		ft_pstr(char *str, t_printf all, int *pd, char c)
 char		*ft_precision(t_printf *all, char *format)
 {
 	++format;
-	all->prsn = ft_atoi(format);
+	all->precis = ft_atoi(format);
 	while (ft_isdigit((int)*format) && *format != '\0')
 		format++;
-	all->pres = 1;
+	all->h = 1;
 	return (format);
 }
 
@@ -101,20 +101,59 @@ void	ft_modific(t_printf *all, char *str)
 	}
 }
 
+int		ft_spaces(t_printf all, char *s, int l, char c)
+{
+	int spaces;
+
+	spaces = 0;
+	spaces = (all.precis > l) ? all.precis : l;
+	spaces = (all.znak != 'n') ? spaces + 1 : spaces;
+	spaces = (*s == '0' && all.precis == 0) ? 0 : spaces;
+	spaces = (all.w > spaces) ? all.w - spaces : 0;
+	spaces = (c == 'x' && all.hash == 1 && all.zero == 0 && (*s != '0' \
+		|| c == 'p')) ? spaces - 2 : spaces;
+	spaces = (c == 'o' && all.hash == 1) ? spaces - 1 : spaces;
+	return (spaces);
+}
+
 void	ft_prnum(char *s, t_printf all, char c, int *pd)
 {
-	// int		spaces;
-	// int		l;
+	int		spaces;
+	int		l;
 
-	// l = (s != NULL) ? (ft_strlen(s) : 0;
-	// spaces = ft_spaces(all, s, l, c);
+	l = (s != NULL) ? ft_strlen(s) : 0;
+	spaces = ft_spaces(all, s, l, c);
 	// ft_prnum2(all, &spaces, pd, &l);
-	(void)c;
-	(void)all;
-	// if (all.znak != 'n' && all.zero == 0 && ++(*pd))
-	// 	write(1, &all.znak, 1);
-	if ((*pd) += ft_strlen(s))
+	// (void)c;
+	// (void)all;
+	l = (all.precis > l) ? all.precis - l : 0;
+	if (all.hash == 1 && (c == 'x' || c == 'X') && (*pd = *pd + 2)
+	&& all.zero != 0 && (spaces = spaces - 2))
+		(c == 'X') ? write(1, "0X", 2) : write(1, "0x", 2);
+	if (all.znak != 'n' && all.zero != 0 && ++(*pd))
+		write(1, &all.znak, 1);
+	while (spaces > 0 && all.left == 0 && ++(*pd))
+	{
+		(all.zero == 0) ? write(1, " ", 1) : write(1, "0", 1);
+		spaces--;
+	}
+	if (c == 'o' && all.hash == 1 && all.zero == 0 && ++(*pd))
+	{
+		write(1, "0", 1);
+		l--;
+	}
+	if (all.znak != 'n' && all.zero == 0 && ++(*pd))
+		write(1, &all.znak, 1);
+	// all.x == 2 ? l - 2 : 0;
+	while (l-- > 0 && ++(*pd))
+		write(1, "0", 1);
+	if (s != NULL && !(*s == '0' && all.precis == 0) && !(*s == '0'
+		&& c == 'o' && all.hash == 'y') && ((*pd) += ft_strlen(s)))
 		ft_putstr(s);
+	while (spaces-- && all.left == 1 && ++(*pd))
+		(all.zero == 0) ? write(1, " ", 1) : write(1, "0", 1);
+	// if ((*pd) += ft_strlen(s))
+	// 	ft_putstr(s);
 }
 
 void		ft_numb(t_printf *all, va_list ap, int *pd)
@@ -128,8 +167,7 @@ void		ft_numb(t_printf *all, va_list ap, int *pd)
 		all->point = 1;
 		ft_format_p(ap, all, pd);
 	}
-	if (all->pres == 1) 
-		all->zero = 0;
+	(all->h == 1) ? all->zero = 0 : 0;
 	(c == 'i' || c == 'd') ? ft_format_d(ap, all, pd) : 0;
 	(c == 'D') ? ft_format_dd(ap, all, pd) : 0;
 	(c == 'x' || c == 'X') ? ft_format_xx(ap, all, pd, c) : 0;
@@ -191,8 +229,8 @@ t_printf	*init_printf(t_printf *all)
 	// all->flag = 'e';
 	all->zero = 0;
 	all->w = 0;
-	all->prsn = -1;
-	all->pres = 0;
+	all->precis = -1;
+	all->h = 0;
 	all->spec = 0;
 	all->minus = 0;
 	all->hash = 0;

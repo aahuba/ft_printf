@@ -16,6 +16,7 @@
 #include <stdarg.h>
 #include "../libft/libft.h"
 #include <stdio.h> /* delete printf */
+#include <locale.h>
 
 # define TYPE "sSpd%DioOuUxXcC"
 # define SPEC "lhjz"
@@ -24,8 +25,8 @@
 typedef struct	s_printf
 {
 	int			w;
-	int			prsn;
-	int			pres;
+	int			precis;
+	int			h;
 	int			l_m;
 	char		*res; // result
 	int			hash;
