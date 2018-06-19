@@ -6,20 +6,19 @@ char	*ft_format(va_list ap, t_printf *all, int *pd, char c)
 
 	if (c == 'O')
 		ft_modific(all, "l");
-	// a = va_arg(ap, unsigned long long int);
-	a = 0;
+	a = va_arg(ap, unsigned long long int);
 	if (all->l_m == 0)
-		a = (unsigned)va_arg(ap, long long int);
+		a = (unsigned int)(a);
 	else if (all->l_m == 1)
-		a = (unsigned short int)va_arg(ap, unsigned int);
+		a = (unsigned char)(a) & 0xFFFF;
 	else if (all->l_m == 2)
-		a = (unsigned char)va_arg(ap, int);
+		a = (unsigned short int)(a) & 0xFF;
 	else if (all->l_m == 3)
-		a = va_arg(ap, unsigned long int);
+		a = (unsigned long int)(a);
 	else if (all->l_m == 5)
-		a = va_arg(ap, uintmax_t);
+		a = (uintmax_t)(a);
 	else if (all->l_m == 6)
-		a = va_arg(ap, size_t);
+		a = (size_t)(a);
 	(c == 'O' || c == 'o') ? ft_prnum(ft_itoa_base(a, 8), *all, c, pd) : 0;
 	(c == 'u') ? ft_prnum(ft_itoa_base(a, 10), *all, 'u', pd) : 0;
 	if (c == 'x' || c == 'X')
@@ -62,7 +61,7 @@ void	ft_format_d(va_list ap, t_printf *all, int *pd)
 	else if (all->l_m == 5)
 		a = (intmax_t)a;
 	else if (all->l_m == 6)
-		a = (size_t)a;
+		a = (size_t)a ;
 	ft_prnum(ft_itoa(a), *all, 'd', pd);
 }
 
