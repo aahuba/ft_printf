@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-void	ft_putwchar_fd(wchar_t chr, int *pd)
+void	ft_putwchar(wchar_t chr, int *pd)
 {
 	if (chr <= 0x7F && (*pd)++)
 		ft_putchar(chr);
