@@ -10,11 +10,13 @@ char	*ft_format(va_list ap, t_printf *all, int *pd, char c)
 	if (all->l_m == 0)
 		a = (unsigned int)(a);
 	else if (all->l_m == 1)
-		a = (unsigned char)(a) & 0xFFFF;
+		a = (unsigned char)(a);
 	else if (all->l_m == 2)
-		a = (unsigned short int)(a) & 0xFF;
+		a = (unsigned short)(a);
 	else if (all->l_m == 3)
-		a = (unsigned long int)(a);
+		a = (unsigned long)(a);
+	else if (all->l_m == 4)
+		a = (unsigned long long)(a);
 	else if (all->l_m == 5)
 		a = (uintmax_t)(a);
 	else if (all->l_m == 6)
@@ -53,11 +55,13 @@ void	ft_format_d(va_list ap, t_printf *all, int *pd)
 	if (all->l_m == 0)
 		a = (int)a;
 	else if (all->l_m == 1)
-		a = (signed char)a;
-	else if (all->l_m == 2)
 		a = (short)a;
+	else if (all->l_m == 2)
+		a = (signed char)a;
 	else if (all->l_m == 3)
 		a = (long)a;
+	else if (all->l_m == 4)
+		a = (long long)a;
 	else if (all->l_m == 5)
 		a = (intmax_t)a;
 	else if (all->l_m == 6)
