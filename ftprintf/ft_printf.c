@@ -317,11 +317,11 @@ void		ft_numb(t_printf *all, va_list ap, int *pd)
 			// return ('o');
 			// ft_i_b_u('o', i, *all, pd);
 		if (c == 'u')
-			ft_format_u(ap, all, pd);
+			ft_format(ap, all, pd, c);
 		else if (c == 'U')
 			ft_format_uu(ap, all, pd);
 		else
-			ft_format_o(ap, all, pd, c);
+			ft_format(ap, all, pd, c);
 			// return ('d');
 			// ft_i_b_u('d', i, *all, pd);
 	}
