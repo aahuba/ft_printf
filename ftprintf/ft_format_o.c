@@ -10,7 +10,7 @@ void	ft_format_o(va_list ap, t_printf *all, int *pd, char c)
 	if (all->l_m == 1)
 		a = va_arg(ap, unsigned int) & 0xFFFF;
 	else if (all->l_m == 2)
-		a = va_arg(ap, unsigned int) & 0xFF;
+		a = va_arg(ap, unsigned short int) & 0xFF;
 	else if (all->l_m == 3)
 		a = va_arg(ap, unsigned long);
 	else if (all->l_m == 4)
