@@ -137,7 +137,7 @@ void	ft_prnum(char *s, t_printf all, char c, int *pd)
 	while (l-- > 0 && ++(*pd))
 		write(1, "0", 1);
 	if (s != NULL && !(*s == '0' && all.precis == 0) && !(*s == '0'
-		&& c == 'o' && all.hash == 'y') && ((*pd) += ft_strlen(s)))
+		&& c == 'o' && all.hash == 1) && ((*pd) += ft_strlen(s)))
 		ft_putstr(s);
 	while (spaces-- && all.left == 1 && ++(*pd))
 		(all.zero == 0) ? write(1, " ", 1) : write(1, "0", 1);
