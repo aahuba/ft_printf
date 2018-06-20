@@ -42,9 +42,9 @@ void	ft_format_xx(va_list ap, t_printf *all, int *pd, char c)
 	char *a;
 
 	a = ft_format(ap, all, pd, c);
-	if (c == 'x' && all->hash == 1 && all->zero == 0 && *a != '0' && (*pd = *pd - 2))
+	if (c == 'x' && all->hash == 1 && all->zero == 0 && *a != '0' && (*pd -= 2))
 		a = ft_strjoin("0x", a);
-	if (c == 'X' && all->hash == 1 && all->zero == 0 && *a != '0' && (*pd = *pd - 2))
+	if (c == 'X' && all->hash == 1 && all->zero == 0 && *a != '0' && (*pd -= 2))
 		a = ft_strjoin("0X", a);
 	// (*a == '0' && all->hash == 1 && all->zero != 0) ? (*pd = *pd - 2) : 0;
 	if (c == 'X')
@@ -71,7 +71,7 @@ void	ft_format_d(va_list ap, t_printf *all, int *pd)
 		a = (intmax_t)a;
 	else if (all->l_m == 6)
 		a = (size_t)a ;
-	ft_prnum(ft_itoa(a), *all, 'd', pd);
+	ft_prnum(ft_itoa(a, all), *all, 'd', pd);
 }
 
 void	ft_format_dd(va_list ap, t_printf *all, int *pd)
@@ -80,5 +80,5 @@ void	ft_format_dd(va_list ap, t_printf *all, int *pd)
 
 	ft_modific(all, "l");
 	a = va_arg(ap, long);
-	ft_prnum(ft_itoa(a), *all, 'D', pd);
+	ft_prnum(ft_itoa(a, all), *all, 'D', pd);
 }
