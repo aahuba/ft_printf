@@ -21,7 +21,6 @@ void		ft_pstr(char *str, t_printf all, int *pd, char c)
 	i = (all.w > l && all.left == 1) ? (all.w - l) : 0;
 	while (i--)
 		(all.zero == 0 && ++(*pd)) ? write(1, " ", 1) : 0;
-	// free(str);
 }
 
 char		*ft_precision(t_printf *all, char *format)
@@ -44,16 +43,16 @@ void		parse_conv(t_printf *all, char *format)
 	}
 }
 
-void	ft_char(t_printf all, va_list ap, int *pd)
-{
-	char	*s;
+// void	ft_char(t_printf all, va_list ap, int *pd)
+// {
+// 	char	*s;
 	
-	s = malloc(sizeof(char) * 2);
-	s[0] = va_arg(ap, int);
-	s[1] = '\0';
-	ft_pstr(s, all, pd, 'c');
-	free(s);
-}	
+// 	s = malloc(sizeof(char) * 2);
+// 	s[0] = va_arg(ap, int);
+// 	s[1] = '\0';
+// 	ft_pstr(s, all, pd, 'c');
+// 	free(s);
+// }	
 
 char	*ft_modific_2(t_printf *all, char *str)
 {
@@ -175,9 +174,9 @@ void		ft_chr(t_printf *all, va_list ap, int *pd)
 	else if ((all->format)[0] == 'S' || ((all->format)[0] == 's' && all->l_m == 3))
 		ft_unicode(*all, ap, pd, (all->format)[0]);
 	else if ((all->format)[0] == 'c' && all->l_m != 3)
-		ft_char(*all, ap, pd);
+		ft_format_c(all, ap, pd, (all->format)[0]);
 	else if ((all->format)[0] == 'C' || ((all->format)[0] == 'c' && all->l_m == 3))
-		ft_unicode(*all, ap, pd, (all->format)[0]);
+		ft_format_c(all, ap, pd, (all->format)[0]);
 }
 
 void		ft_type(t_printf *all, va_list ap, char format, int *pd)

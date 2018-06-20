@@ -53,10 +53,11 @@ void	ft_format_ss(va_list ap, t_printf *all, int *pd);
 void	ft_format_percent(t_printf *all, int *pd);
 void	ft_format_xx(va_list ap, t_printf *all, int *pd, char c);
 char	*ft_format(va_list ap, t_printf *all, int *pd, char c);
+char	*ft_format_c(t_printf *all, va_list ap, int *pd, char c);
 void	ft_format_uu(va_list ap, t_printf *all, int *pd);
 void	ft_format_p(va_list ap, t_printf *all, int *pd);
 void	ft_format_dd(va_list ap, t_printf *all, int *pd);
 void	ft_format_d(va_list ap, t_printf *all, int *pd);
-void	ft_unicode(t_printf all, va_list ap, int *pd, char f);
+void	ft_unicode(t_printf all, va_list ap, int *pd);
 
 #endif
