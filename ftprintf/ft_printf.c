@@ -4,15 +4,9 @@ void		ft_pstr(char *str, t_printf all, int *pd, char c)
 {
 	int		l;
 	int		i;
-	int		m;
 
-	m = 0;
 	if (!str)
-	{
-		m = 1;
-		str = malloc(sizeof(char) * 7);
-		str = ft_strcpy(str, "(null)");
-	}
+		str = ft_strjoin(str, "(null)");
 	l = (*str == '\0' && c == 'c') ? 1 : ft_strlen(str);
 	if (l > all.precis && (all.precis != -1 && !(*str == '\0' && c == 'c')))
 		l = all.precis;
@@ -27,7 +21,7 @@ void		ft_pstr(char *str, t_printf all, int *pd, char c)
 	i = (all.w > l && all.left == 1) ? (all.w - l) : 0;
 	while (i--)
 		(all.zero == 0 && ++(*pd)) ? write(1, " ", 1) : 0;
-	(m == 1) ? free(str) : 0;
+	// free(str);
 }
 
 char		*ft_precision(t_printf *all, char *format)
@@ -60,23 +54,6 @@ void	ft_char(t_printf all, va_list ap, int *pd)
 	ft_pstr(s, all, pd, 'c');
 	free(s);
 }	
-
-char	*ft_format_c(t_printf all, va_list ap, int *pd)
-{
-	char	a;
-	char	*ret;
-
-	ret = ft_strnew(2);
-	if (!ret)
-		return (NULL);
-	a = (unsigned int)va_arg(ap, wint_t);
-	if (a == 0)
-		a = -42;
-	ret[0] = a;
-	ret[1] = 0;
-	ft_pstr(ret, all, pd, 'c');
-	return (ret);
-}
 
 char	*ft_modific_2(t_printf *all, char *str)
 {
@@ -140,9 +117,6 @@ void	ft_prnum(char *s, t_printf all, char c, int *pd)
 
 	l = (s != NULL) ? ft_strlen(s) : 0;
 	spaces = ft_spaces(all, s, l, c);
-	// ft_prnum2(all, &spaces, pd, &l);
-	// (void)c;
-	// (void)all;
 	l = (all.precis > l) ? all.precis - l : 0;
 	if (all.hash == 1 && (c == 'x' || c == 'X') && (*pd = *pd + 2)
 	&& all.zero != 0 && (spaces = spaces - 2))
@@ -161,7 +135,6 @@ void	ft_prnum(char *s, t_printf all, char c, int *pd)
 	}
 	if (all.znak != 'n' && all.zero == 0 && ++(*pd))
 		write(1, &all.znak, 1);
-	// all.x == 2 ? l - 2 : 0;
 	while (l-- > 0 && ++(*pd))
 		write(1, "0", 1);
 	if (s != NULL && !(*s == '0' && all.precis == 0) && !(*s == '0'
@@ -169,8 +142,6 @@ void	ft_prnum(char *s, t_printf all, char c, int *pd)
 		ft_putstr(s);
 	while (spaces-- && all.left == 1 && ++(*pd))
 		(all.zero == 0) ? write(1, " ", 1) : write(1, "0", 1);
-	// if ((*pd) += ft_strlen(s))
-	// 	ft_putstr(s);
 }
 
 void		ft_numb(t_printf *all, va_list ap, int *pd)
@@ -202,7 +173,7 @@ void		ft_chr(t_printf *all, va_list ap, int *pd)
 	if ((all->format)[0] == 's' && all->l_m != 3)
 		ft_pstr(va_arg(ap, char *), *all, pd, 's');
 	else if ((all->format)[0] == 'S' || ((all->format)[0] == 's' && all->l_m == 3))
-		ft_format_ss(ap, all, pd);
+		ft_unicode(*all, ap, pd, (all->format)[0]);
 	else if ((all->format)[0] == 'c' && all->l_m != 3)
 		ft_char(*all, ap, pd);
 	else if ((all->format)[0] == 'C' || ((all->format)[0] == 'c' && all->l_m == 3))

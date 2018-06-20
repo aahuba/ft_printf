@@ -1,44 +1,44 @@
 #include "ft_printf.h"
 
-void	ft_putwchar(wchar_t chr, int *pd)
-{
-	if (chr <= 0x7F && (*pd)++)
-		ft_putchar(chr);
-	else if (chr <= 0x7FF && (*pd = * pd + 2))
-	{
-		ft_putchar((chr >> 6) + 0xC0);
-		ft_putchar((chr & 0x3F) + 0x80);
-	}
-	else if (chr <= 0xFFFF && (*pd = * pd + 3))
-	{
-		ft_putchar((chr >> 12) + 0xE0);
-		ft_putchar(((chr >> 6) & 0x3F) + 0x80);
-		ft_putchar((chr & 0x3F) + 0x80);
-	}
-	else if (chr <= 0x10FFFF && (*pd = * pd + 4))
-	{
-		ft_putchar((chr >> 18) + 0xF0);
-		ft_putchar(((chr >> 12) & 0x3F) + 0x80);
-		ft_putchar(((chr >> 6) & 0x3F) + 0x80);
-		ft_putchar((chr & 0x3F) + 0x80);
-	}
-}
+// void	ft_putwchar(wchar_t chr, int *pd)
+// {
+// 	if (chr <= 0x7F && (*pd)++)
+// 		ft_putchar(chr);
+// 	else if (chr <= 0x7FF && (*pd = * pd + 2))
+// 	{
+// 		ft_putchar((chr >> 6) + 0xC0);
+// 		ft_putchar((chr & 0x3F) + 0x80);
+// 	}
+// 	else if (chr <= 0xFFFF && (*pd = * pd + 3))
+// 	{
+// 		ft_putchar((chr >> 12) + 0xE0);
+// 		ft_putchar(((chr >> 6) & 0x3F) + 0x80);
+// 		ft_putchar((chr & 0x3F) + 0x80);
+// 	}
+// 	else if (chr <= 0x10FFFF && (*pd = * pd + 4))
+// 	{
+// 		ft_putchar((chr >> 18) + 0xF0);
+// 		ft_putchar(((chr >> 12) & 0x3F) + 0x80);
+// 		ft_putchar(((chr >> 6) & 0x3F) + 0x80);
+// 		ft_putchar((chr & 0x3F) + 0x80);
+// 	}
+// }
 
-void	ft_format_ss(va_list ap, t_printf *all, int *pd)
-{
-	wchar_t		*a;
-	size_t		i;
+// void	ft_format_ss(va_list ap, t_printf *all, int *pd)
+// {
+// 	wchar_t		*a;
+// 	size_t		i;
 
-	i = 0;
-	a = va_arg(ap, wchar_t *);
-	if (!a)
-		ft_pstr(NULL, *all, pd, 's');
-	else
-	{
-		while (*a)
-			ft_putwchar(*a++, pd);
-	}
-}
+// 	i = 0;
+// 	a = va_arg(ap, wchar_t *);
+// 	if (!a)
+// 		ft_pstr(NULL, *all, pd, 's');
+// 	else
+// 	{
+// 		while (*a)
+// 			ft_putwchar(*a++, pd);
+// 	}
+// }
 
 void	ft_one_bit(unsigned int num)
 {
@@ -142,18 +142,28 @@ int		n_bits(unsigned int num)
 
 void	ft_unicode(t_printf all, va_list ap, int *pd, char f)
 {
-	// wchar_t			*str;
+	wchar_t			*str;
 	unsigned int	c;
 	int				i;
 	int				num_bits;
 
 	i = 0;
-	(void)all;
-	// num_bits = n_bits(c);
-	// if (f == 'S' || f == 's')
-	// {
-	// 	str = va_arg(ap, wchar_t*);
-	// }
+	num_bits = 0;
+	if (f == 'S' || f == 's')
+	{
+		str = va_arg(ap, wchar_t*);
+		if (!str)
+			ft_pstr(NULL, all, pd, 's');
+		while (str && str[i])
+			num_bits += n_bits(str[i++]);
+		i = 0;
+		while (num_bits > 0)
+		{
+			c = (unsigned int)n_bits(str[i]);
+			ft_prunic(str[i++], pd, c);
+			num_bits -= c;
+		}
+	}
 	if (f == 'C' || f == 'c')
 	{
 		c = (unsigned int)va_arg(ap, wint_t);
