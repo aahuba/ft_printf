@@ -61,6 +61,23 @@ void	ft_char(t_printf all, va_list ap, int *pd)
 	free(s);
 }	
 
+char	*ft_format_c(t_printf all, va_list ap, int *pd)
+{
+	char	a;
+	char	*ret;
+
+	ret = ft_strnew(2);
+	if (!ret)
+		return (NULL);
+	a = (unsigned int)va_arg(ap, wint_t);
+	if (a == 0)
+		a = -42;
+	ret[0] = a;
+	ret[1] = 0;
+	ft_pstr(ret, all, pd, 'c');
+	return (ret);
+}
+
 char	*ft_modific_2(t_printf *all, char *str)
 {
 	if (all->l_m < 3)
@@ -188,8 +205,8 @@ void		ft_chr(t_printf *all, va_list ap, int *pd)
 		ft_format_ss(ap, all, pd);
 	else if ((all->format)[0] == 'c' && all->l_m != 3)
 		ft_char(*all, ap, pd);
-	// else if ((all->format)[0] == 'C' || (c == 'c' && opt->modif == 3))
-	// 	ft_unicode_c(ap, all, pd);
+	else if ((all->format)[0] == 'C' || ((all->format)[0] == 'c' && all->l_m == 3))
+		ft_unicode(*all, ap, pd, (all->format)[0]);
 }
 
 void		ft_type(t_printf *all, va_list ap, char format, int *pd)

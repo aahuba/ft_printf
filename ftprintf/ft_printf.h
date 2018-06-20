@@ -16,7 +16,8 @@
 #include <stdarg.h>
 #include "../libft/libft.h"
 #include <stdio.h> /* delete printf */
-#include <locale.h>
+#include <wchar.h>
+#include <limits.h>
 
 # define TYPE "sSpd%DioOuUxXcC"
 # define SPEC "lhjz"
@@ -56,5 +57,6 @@ void	ft_format_uu(va_list ap, t_printf *all, int *pd);
 void	ft_format_p(va_list ap, t_printf *all, int *pd);
 void	ft_format_dd(va_list ap, t_printf *all, int *pd);
 void	ft_format_d(va_list ap, t_printf *all, int *pd);
+void	ft_unicode(t_printf all, va_list ap, int *pd, char f);
 
 #endif
